@@ -1,27 +1,45 @@
 # Checks if a given number is prime
 def prime_checker(number):
 
+    # Generates list of all numbers up to and including given number
     list = []
-    for i in range(1, 101):
+    for i in range(1, number + 1):
         list.append(i)
 
+    # Generates list of factors for given number
     factors = []
     for element in list:
         if number % element == 0:
             factors.append(element)
-    print(factors)
 
+    # Checks if not prime
     if factors != [1, number]:
-        print(f"{number} is not prime")
+        return False
+    # Otherwise, must be prime
     else:
-        print(f"{number} is prime")
+        return True
 
 
-# TEST
-import time
+# Number of primes at a certain number
+def number_of_primes(number):
+    list = []
+    for i in range(1, number + 1):
+        if prime_checker(i) == True:
+            list.append(i)
+    return f"There are {len(list)} prime numbers at {number}. {list}"
 
-start = time.perf_counter()
-for i in range(1, 101):
-    prime_checker(i)
-end = time.perf_counter()
-print(f"{(end-start)*1000} ms")
+
+# # TEST
+# import time
+
+# # Timer start
+# start = time.perf_counter()
+
+# # Checks number of total primes at a prime number
+# for i in range(1000):
+#     if prime_checker(i) == True:
+#         print((number_of_primes(i)))
+
+# # Timer end
+# end = time.perf_counter()
+# print(f"Completed in {(end-start)} seconds")
