@@ -1,3 +1,6 @@
+import time
+
+
 # Checks if a given number is prime
 def prime_checker(number):
 
@@ -24,22 +27,21 @@ def prime_checker(number):
 def number_of_primes(number):
     list = []
     for i in range(1, number + 1):
-        if prime_checker(i) == True:
+        if prime_checker(i):
             list.append(i)
     return f"There are {len(list)} prime numbers at {number}. {list}"
 
 
 # # TEST
-# import time
 
-# # Timer start
-# start = time.perf_counter()
+# Timer start
+start = time.perf_counter()
 
-# # Checks number of total primes at a prime number
-# for i in range(1000):
-#     if prime_checker(i) == True:
-#         print((number_of_primes(i)))
+# Checks number of total primes at a prime number
+for i in range(1000):
+    if prime_checker(i):
+        print((number_of_primes(i)))
 
-# # Timer end
-# end = time.perf_counter()
-# print(f"Completed in {(end-start)} seconds")
+# Timer end
+end = time.perf_counter()
+print(f"Completed in {round((end-start), 2)} seconds")
