@@ -1,47 +1,54 @@
 import time
 
 
-# Checks if a given number is prime
-def prime_checker(number):
+def is_even(number: int) -> bool:
+    return number % 2 == 0
 
-    # Generates list of all numbers up to and including given number
-    list = []
-    for i in range(1, number + 1):
-        list.append(i)
 
-    # Generates list of factors for given number
-    factors = []
-    for element in list:
-        if number % element == 0:
-            factors.append(element)
+def is_odd(number: int) -> bool:
+    return number % 2 != 0
 
-    # Checks if not prime
-    if factors != [1, number]:
+
+def is_prime(number: int) -> bool:
+    element = 3
+    count = 0
+    if is_even(number):
         return False
-    # Otherwise, must be prime
-    else:
+    if is_odd(number):
+        while element <= number:
+            if number % element == 0:
+                count += 1
+            if count > 1:
+                return False
+            element += 2
         return True
 
 
-# Number of primes at a certain number
-def number_of_primes(number):
-    list = []
-    for i in range(1, number + 1):
-        if prime_checker(i):
-            list.append(i)
-    return f"There are {len(list)} prime numbers at {number}. {list}"
+def count_primes(number: int) -> int:
+    count = 0
+    index = 1
+    while index <= number:
+        if is_prime(index):
+            count += 1
+        index += 2
+    return count
 
 
-# # TEST
+if __name__ == "__main__":
+    testNumbers = (10_000, 25_000, 50_000, 75_000, 100_000)
 
-# Timer start
-start = time.perf_counter()
+    index = 0
+    totalTime = 0
+    while index < len(testNumbers):
+        testNumber = testNumbers[index]
+        start = time.perf_counter()
 
-# Checks number of total primes at a prime number
-for i in range(1000):
-    if prime_checker(i):
-        print((number_of_primes(i)))
+        numPrimes = count_primes(testNumber)
+        end = time.perf_counter()
 
-# Timer end
-end = time.perf_counter()
-print(f"Completed in {round((end-start), 2)} seconds")
+        elapsed = (end - start).__round__(2)
+        totalTime += elapsed
+
+        print(f"There are {numPrimes} primes up to {testNumber} - Completed in {elapsed}s")
+        index += 1
+    print(f"Total time - Completed in {totalTime.__round__(2)}s")
